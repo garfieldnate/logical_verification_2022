@@ -337,6 +337,7 @@ end my_list
 
 #print list
 
+#check list
 
 /-! ## Function Definitions
 
@@ -387,6 +388,8 @@ def append (α : Type) : list α → list α → list α
 | list.nil         ys := ys
 | (list.cons x xs) ys := list.cons x (append xs ys)
 
+#check list.nil
+#check list.cons
 #check append
 #eval append _ [3, 1] [4, 1, 5]
 
