@@ -190,12 +190,23 @@ begin
   rw peirce,
   intro hem,
   intros a b haba,
-  apply or.elim (hem a),
+  have aona: a∨¬a := hem a,
+
+  -- I don't get this; or.elim : ∀ {a b c : Prop}, a ∨ b → (a → c) → (b → c) → c
+  -- and applying it to a∨¬a still gives us (a → c) → (b → c) → c.
+  -- The goal at this point is simply a, so applying this to the goal should give a new goal of
+  -- (a → a) → (¬a → a), with an implicationn arrow between the two.
+  -- Instead we get two unrelated subgoals.
+
+
+  apply or.elim aona,
   { intro,
     assumption },
+  -- I don't get this, either. How could ¬a→a ever be true?
   { intro hna,
     apply haba,
     intro ha,
+    -- Why are we allowed to apply this? Doesn't it just let us prove anything by converting the goal into false?
     apply false.elim,
     apply hna,
     assumption }
@@ -213,8 +224,10 @@ begin
   intro hna,
   apply false.elim,
   apply hnna,
-  exact hna
+  exact hna,
 end
+
+-- I think the classical logic is breaking my brain T_T
 
 /-! We leave the remaining implication for the homework: -/
 
